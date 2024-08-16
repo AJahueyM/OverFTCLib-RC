@@ -1,0 +1,22 @@
+apply plugin: 'maven-publish'
+
+publishing {
+    publications {
+        register(MavenPublication) {
+            groupId = project.groupId
+            artifactId = project.artifactId
+            version = project.versionString
+
+            afterEvaluate {
+                from components.release
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = 'local'
+            url = layout.buildDirectory.dir("repo")
+        }
+    }
+}
